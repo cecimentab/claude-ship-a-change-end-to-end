@@ -27,7 +27,7 @@ function validateUserInput({ name, email }) {
   if (!email.trim()) {
     return { field: "email", error: "The email address can't be blank. Please enter one." };
   }
-  if (!EMAIL_PATTERN.test(email)) {
+  if (!EMAIL_PATTERN.test(email.trim())) {
     return {
       field: "email",
       error: 'That doesn\'t look like a valid email address. Try something like "ada@example.com".',
@@ -61,8 +61,8 @@ router.put("/:id", (req, res) => {
   }
 
   const user = store.updateUser(Number(req.params.id), {
-    name: req.body.name,
-    email: req.body.email,
+    name: req.body.name.trim(),
+    email: req.body.email.trim(),
   });
 
   if (!user) {
