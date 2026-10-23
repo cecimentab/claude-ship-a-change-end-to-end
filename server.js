@@ -16,6 +16,11 @@ app.use((err, req, res, next) => {
       error: "The request body isn't valid JSON. Please check its formatting and try again.",
     });
   }
+  if (err.type === "entity.too.large") {
+    return res.status(413).json({
+      error: "The request body is too large. Please send a smaller payload.",
+    });
+  }
   next(err);
 });
 
